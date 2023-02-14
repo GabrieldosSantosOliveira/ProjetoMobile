@@ -1,12 +1,11 @@
+import { Loading } from '@components/Loading';
 import {
   useFonts,
   Poppins_400Regular,
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
+import { Home } from '@screens/Home';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-import { Loading } from './src/components/Loading';
-import { Home } from './src/screens/Home';
 
 export default function App() {
   const [isFontsLoaded] = useFonts({

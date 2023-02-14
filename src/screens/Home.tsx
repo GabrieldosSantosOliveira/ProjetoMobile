@@ -1,8 +1,8 @@
+import { Input } from '@components/Input';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 
-import { Input } from '../components/Input';
 export const Home = () => {
   return (
     <View style={styles.container}>

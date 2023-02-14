@@ -4,9 +4,7 @@
     "slug": "Projeto",
     "version": "1.0.0",
     "userInterfaceStyle": "automatic",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "com.gabriel85.Projeto"
     }
