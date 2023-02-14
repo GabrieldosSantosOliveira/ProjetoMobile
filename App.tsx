@@ -1,35 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
 import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+  useFonts,
+  Poppins_400Regular,
+  Poppins_700Bold,
+} from '@expo-google-fonts/poppins';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { Loading } from './src/components/Loading';
+import { Home } from './src/screens/Home';
+
 export default function App() {
+  const [isFontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_700Bold,
+  });
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <StatusBar style="auto" />
-        <TextInput placeholder="Digite o titulo" />
-        <TextInput placeholder="Digite a descrição" />
-        <TextInput placeholder="Digite o conteudo" />
-        <TouchableOpacity>
-          <Text>Confirmar</Text>
-        </TouchableOpacity>
-      </View>
+      {isFontsLoaded ? <Home /> : <Loading />}
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
