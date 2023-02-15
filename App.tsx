@@ -1,4 +1,5 @@
 import { Loading } from '@components/Loading';
+import { ThemeProvider } from '@contexts/ThemeContext';
 import {
   useFonts,
   Poppins_400Regular,
@@ -13,8 +14,10 @@ export default function App() {
     Poppins_700Bold,
   });
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      {isFontsLoaded ? <Home /> : <Loading />}
-    </SafeAreaView>
+    <ThemeProvider>
+      <SafeAreaView style={{ flex: 1 }}>
+        {isFontsLoaded ? <Home /> : <Loading />}
+      </SafeAreaView>
+    </ThemeProvider>
   );
 }
