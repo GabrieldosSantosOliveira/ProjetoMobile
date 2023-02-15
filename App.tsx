@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { Loading } from '@components/Loading';
 import { ThemeProvider } from '@contexts/ThemeContext';
 import {
@@ -5,9 +6,8 @@ import {
   Poppins_400Regular,
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
-import { Home } from '@screens/Home';
+import { Routes } from '@routes/index';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 export default function App() {
   const [isFontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -16,7 +16,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <SafeAreaView style={{ flex: 1 }}>
-        {isFontsLoaded ? <Home /> : <Loading />}
+        {isFontsLoaded ? <Routes /> : <Loading />}
       </SafeAreaView>
     </ThemeProvider>
   );
