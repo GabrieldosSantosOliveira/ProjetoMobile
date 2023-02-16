@@ -1,3 +1,4 @@
+import { useTheme } from '@hooks/useTheme';
 import {
   memo,
   forwardRef,
@@ -6,26 +7,30 @@ import {
   useState,
 } from 'react';
 import { TextInput, TextInputProps, StyleSheet, View } from 'react-native';
-
 interface InputProps extends TextInputProps {
   LeftElement?: ReactNode;
   RightElement?: ReactNode;
 }
 export const InputBase: ForwardRefRenderFunction<TextInput, InputProps> = (
-  { RightElement, LeftElement, ...props },
+  { RightElement, LeftElement, style, ...props },
   ref,
 ) => {
+  const { colorMode } = useTheme();
   const [isFocus, setIsFocus] = useState<boolean>(false);
   return (
     <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderColor: '#bfdbfe',
-        borderWidth: 1,
-        borderRadius: 4,
-      }}
+      style={[
+        {
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderColor: '#bfdbfe',
+          borderWidth: 1,
+          borderRadius: 4,
+          width: '100%',
+        },
+        style,
+      ]}
     >
       {LeftElement ? LeftElement : <></>}
       <TextInput
@@ -35,12 +40,13 @@ export const InputBase: ForwardRefRenderFunction<TextInput, InputProps> = (
         {...props}
         style={
           isFocus
-            ? styles.input
+            ? [
+                styles.input,
+                { color: colorMode === 'dark' ? 'white' : 'black' },
+              ]
             : [
                 styles.input,
-                {
-                  backgroundColor: 'red',
-                },
+                { color: colorMode === 'dark' ? 'white' : 'black' },
               ]
         }
       />
@@ -50,7 +56,7 @@ export const InputBase: ForwardRefRenderFunction<TextInput, InputProps> = (
 };
 const styles = StyleSheet.create({
   input: {
-    width: '100%',
+    flex: 1,
     fontFamily: 'Poppins_400Regular',
     height: 56,
     paddingHorizontal: 16,
