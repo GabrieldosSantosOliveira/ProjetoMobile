@@ -1,9 +1,9 @@
 import { Feather } from '@expo/vector-icons';
 import { useTheme } from '@hooks/useTheme';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Home } from '@screens/Home';
 import { Settings } from '@screens/Settings';
 
-import { Stack } from './stack';
 const { Navigator, Screen } = createBottomTabNavigator();
 export const BottomTab = () => {
   const { colorMode } = useTheme();
@@ -32,8 +32,8 @@ export const BottomTab = () => {
       }}
     >
       <Screen
-        name="stack"
-        component={Stack}
+        name="home"
+        component={Home}
         options={{
           tabBarIcon: ({ color, size }) => {
             return <Feather name="home" size={size} color={color} />;
