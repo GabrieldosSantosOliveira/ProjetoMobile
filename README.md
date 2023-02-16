@@ -1,11 +1,14 @@
 <p align="center">
 <img src="https://user-images.githubusercontent.com/86084272/219434525-d515c049-d511-480d-9208-f02966303711.png"/> </p>
   
- ## GithubSearch <a href="LICENSE"> <img  src="https://img.shields.io/static/v1?label=License&message=MIT&color=&labelColor=202024" alt="License"></a>
+ ## <p align="center"> GithubSearch <a href="LICENSE"> <img  src="https://img.shields.io/static/v1?label=License&message=MIT&color=&labelColor=202024" alt="License"></a> </p>
  O GithubSearch é uma aplicação que pemite buscar usuarios no github e visualizar suas informações e repositórios, tendo utilizado a api publica do Github
-## Github
-
+ 
 ## 🔖 Demonstração
+
+https://user-images.githubusercontent.com/86084272/219445161-bb0d77ef-2d65-4005-8429-ec03b538861b.mp4
+
+
 
 ## 🛠️ Tecnologias
 - [TypeScript](https://www.typescriptlang.org/) 
