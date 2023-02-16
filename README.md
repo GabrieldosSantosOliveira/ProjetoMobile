@@ -25,6 +25,9 @@ https://user-images.githubusercontent.com/86084272/219445161-bb0d77ef-2d65-4005-
 - [expo-web-browser](https://docs.expo.dev/versions/latest/sdk/webbrowser/)
 - [@expo/vector-icons](https://docs.expo.dev/guides/icons/)
 
+## 🚚 Git Pré-Commit
+- [lint-staged](https://github.com/okonet/lint-staged)
+- [husky](https://typicode.github.io/husky/#/)
 ## 🏗️ Build
 - [Android]() 
 
