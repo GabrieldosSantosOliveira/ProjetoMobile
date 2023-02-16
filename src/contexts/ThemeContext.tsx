@@ -12,6 +12,7 @@ import { useColorScheme } from 'react-native';
 interface IThemeContext {
   colorMode: 'dark' | 'light';
   toggleColorMode: (theme: IThemeStorage) => void;
+  theme: IThemeStorage;
 }
 export const ThemeContext = createContext<IThemeContext>({} as IThemeContext);
 interface IThemeProvider {
@@ -20,9 +21,11 @@ interface IThemeProvider {
 type IThemeStorage = 'dark' | 'light' | 'automatic';
 export const ThemeProvider: FC<IThemeProvider> = ({ children }) => {
   const [colorMode, setColorMode] = useState<'dark' | 'light'>('dark');
+  const [theme, setTheme] = useState<IThemeStorage>('automatic');
   const colorUI = useColorScheme();
   const loadingTheming = useCallback(async () => {
     const theme = await getStorage<IThemeStorage>('@theme');
+    setTheme((prev) => theme ?? prev);
     if (theme === 'dark') {
       setColorMode('dark');
     } else if (theme === 'light') {
@@ -38,10 +41,11 @@ export const ThemeProvider: FC<IThemeProvider> = ({ children }) => {
   }, [colorUI, loadingTheming]);
   const toggleColorMode = async (theme: IThemeStorage) => {
     await setStorage('@theme', theme);
+    setTheme(theme);
     loadingTheming();
   };
   return (
-    <ThemeContext.Provider value={{ colorMode, toggleColorMode }}>
+    <ThemeContext.Provider value={{ colorMode, toggleColorMode, theme }}>
       {children}
     </ThemeContext.Provider>
   );
