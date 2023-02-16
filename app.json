@@ -3,6 +3,7 @@
     "name": "Projeto",
     "slug": "Projeto",
     "version": "1.0.0",
+    "jsEngine": "hermes",
     "userInterfaceStyle": "automatic",
     "assetBundlePatterns": ["**/*"],
     "android": {
