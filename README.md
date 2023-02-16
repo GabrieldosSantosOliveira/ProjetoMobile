@@ -5,9 +5,7 @@
  O GithubSearch é uma aplicação que pemite buscar usuarios no github e visualizar suas informações e repositórios, tendo utilizado a api publica do Github
  
 ## 🔖 Demonstração
-
 https://user-images.githubusercontent.com/86084272/219445161-bb0d77ef-2d65-4005-8429-ec03b538861b.mp4
-
 
 
 ## 🛠️ Tecnologias
