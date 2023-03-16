@@ -37,15 +37,15 @@ https://user-images.githubusercontent.com/86084272/219445161-bb0d77ef-2d65-4005-
 ## 🚀 Como executar
 
 Clone o repositório
-```
+```bash
 git clone https://github.com/GabrieldosSantosOliveira/ProjetoMobile.git
 ```
 Instale as dependências
-```
+```bash
 yarn 
 ```
 Execute com o expo
-```
+```bash
 yarn expo 
 ```
 ## 📝 License
