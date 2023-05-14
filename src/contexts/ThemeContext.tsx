@@ -1,5 +1,4 @@
-import { getStorage } from '@services/getStorage';
-import { setStorage } from '@services/setStorage';
+import { useStorage } from '@hooks/useStorage';
 import {
   createContext,
   FC,
@@ -11,8 +10,10 @@ import {
 import { useColorScheme } from 'react-native';
 interface IThemeContext {
   colorMode: 'dark' | 'light';
-  toggleColorMode: (theme: IThemeStorage) => void;
   theme: IThemeStorage;
+  changeThemeToDark: () => void;
+  changeThemeToLight: () => void;
+  changeThemeToAutomatic: () => void;
 }
 export const ThemeContext = createContext<IThemeContext>({} as IThemeContext);
 interface IThemeProvider {
@@ -23,8 +24,9 @@ export const ThemeProvider: FC<IThemeProvider> = ({ children }) => {
   const [colorMode, setColorMode] = useState<'dark' | 'light'>('dark');
   const [theme, setTheme] = useState<IThemeStorage>('automatic');
   const colorUI = useColorScheme();
+  const { storage } = useStorage();
   const loadingTheming = useCallback(async () => {
-    const theme = await getStorage<IThemeStorage>('@theme');
+    const theme = await storage.get<IThemeStorage>('@theme');
     setTheme((prev) => theme ?? prev);
     if (theme === 'dark') {
       setColorMode('dark');
@@ -33,19 +35,27 @@ export const ThemeProvider: FC<IThemeProvider> = ({ children }) => {
     } else if (theme === 'automatic' && colorUI) {
       setColorMode(colorUI);
     } else if (!theme) {
-      await setStorage('@theme', 'automatic');
+      await storage.set('@theme', 'automatic');
     }
-  }, [colorUI]);
+  }, [colorUI, storage]);
   useEffect(() => {
     loadingTheming();
   }, [colorUI, loadingTheming]);
   const toggleColorMode = async (theme: IThemeStorage) => {
-    await setStorage('@theme', theme);
+    await storage.set('@theme', theme);
     setTheme(theme);
     loadingTheming();
   };
   return (
-    <ThemeContext.Provider value={{ colorMode, toggleColorMode, theme }}>
+    <ThemeContext.Provider
+      value={{
+        colorMode,
+        theme,
+        changeThemeToAutomatic: () => toggleColorMode('automatic'),
+        changeThemeToDark: () => toggleColorMode('dark'),
+        changeThemeToLight: () => toggleColorMode('light'),
+      }}
+    >
       {children}
     </ThemeContext.Provider>
   );

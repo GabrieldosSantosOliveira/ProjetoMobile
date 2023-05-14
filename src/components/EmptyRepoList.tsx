@@ -1,19 +1,25 @@
 import { useTheme } from '@hooks/useTheme';
+import { FontFamily } from '@styles/FontFamitly';
+import { FontSize } from '@styles/FontSize';
+import { FC } from 'react';
 import { View, Text } from 'react-native';
-export const EmptyRepoList = () => {
+export interface EmptyRepoListProps {
+  message?: string | null;
+}
+export const EmptyRepoList: FC<EmptyRepoListProps> = ({ message }) => {
   const { colorMode } = useTheme();
   return (
     <View style={{ paddingVertical: 24 }}>
       <Text
         style={{
-          fontFamily: 'Poppins_500Medium',
+          fontFamily: FontFamily.Poppins[500],
           color: colorMode === 'dark' ? 'white' : '#616364',
-          fontSize: 16,
+          fontSize: FontSize.md,
           textAlign: 'center',
         }}
       >
-        Já buscou a sua conta no GitHub, busque agora e veja sua conta e todos
-        os seus repositórios.
+        {message ||
+          'Já buscou a sua conta no GitHub, busque agora e veja sua conta e todos os seus repositórios.'}
       </Text>
     </View>
   );

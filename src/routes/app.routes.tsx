@@ -2,10 +2,10 @@ import { Feather } from '@expo/vector-icons';
 import { useTheme } from '@hooks/useTheme';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home } from '@screens/Home';
-import { Settings } from '@screens/Settings';
+import { Settings } from '@screens/Settings/Settings';
 
 const { Navigator, Screen } = createBottomTabNavigator();
-export const BottomTab = () => {
+export const AppRoutes = () => {
   const { colorMode } = useTheme();
   return (
     <Navigator

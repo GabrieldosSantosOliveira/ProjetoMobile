@@ -1,10 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
 
-import { BottomTab } from './BottomTab';
+import { AppRoutes } from './app.routes';
 export const Routes = () => {
   return (
     <NavigationContainer>
-      <BottomTab />
+      <AppRoutes />
     </NavigationContainer>
   );
 };

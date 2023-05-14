@@ -1,4 +1,7 @@
 import { Loading } from '@components/Loading';
+import { StatusBar } from '@components/StatusBar';
+import { HttpServiceProvider } from '@contexts/HttpService';
+import { StorageProvider } from '@contexts/StorageContext';
 import { ThemeProvider } from '@contexts/ThemeContext';
 import {
   useFonts,
@@ -6,7 +9,7 @@ import {
   Poppins_700Bold,
   Poppins_500Medium,
 } from '@expo-google-fonts/poppins';
-import { Routes } from '@routes/index';
+import { Routes } from '@routes/routes';
 import { SafeAreaView } from 'react-native-safe-area-context';
 export default function App() {
   const [isFontsLoaded] = useFonts({
@@ -15,10 +18,15 @@ export default function App() {
     Poppins_500Medium,
   });
   return (
-    <ThemeProvider>
-      <SafeAreaView style={{ flex: 1 }}>
-        {isFontsLoaded ? <Routes /> : <Loading />}
-      </SafeAreaView>
-    </ThemeProvider>
+    <StorageProvider>
+      <HttpServiceProvider>
+        <ThemeProvider>
+          <SafeAreaView style={{ flex: 1 }}>
+            <StatusBar />
+            {isFontsLoaded ? <Routes /> : <Loading />}
+          </SafeAreaView>
+        </ThemeProvider>
+      </HttpServiceProvider>
+    </StorageProvider>
   );
 }

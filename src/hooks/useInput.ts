@@ -1,11 +1,11 @@
-import { ThemeContext } from '@contexts/ThemeContext';
+import { InputContext } from '@contexts/InputContext';
 import { WithoutProviderError } from '@errors/WithoutProviderError';
 import { useContext } from 'react';
-export const useTheme = () => {
-  const value = useContext(ThemeContext);
+export const useInput = () => {
+  const value = useContext(InputContext);
   if (Object.keys(value).length === 0) {
     throw new WithoutProviderError(
-      'useTheme must be used within an ThemeProvider',
+      'useInput must be used within an InputProvider',
     );
   }
   return value;

@@ -1,6 +1,9 @@
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@hooks/useTheme';
+import { UserDto } from '@models/UserDto';
 import { DateZone } from '@services/DateZone';
+import { FontFamily } from '@styles/FontFamitly';
+import { FontSize } from '@styles/FontSize';
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
 import { FC } from 'react';
@@ -8,51 +11,26 @@ import { View, Image, Text } from 'react-native';
 
 import { Contact } from './Contact';
 import { SocialTag } from './Social';
-export interface IUser {
-  avatar_url: string;
-  name: string;
-  login: string;
-  created_at: Date;
-  bio?: string;
-  public_repos: number;
-  followers: number;
-  following: number;
-  location?: string;
-  html_url: string;
-  twitter_username?: string;
-  company?: string;
-}
+
 type IHandleOnpress = {
   mobileLink?: string;
   webLink: string;
 };
 const handleOnPress = async ({ webLink, mobileLink = '' }: IHandleOnpress) => {
-  try {
-    const isAvailable = await Linking.canOpenURL(mobileLink);
-    if (isAvailable) {
-      return Linking.openURL(mobileLink);
-    } else {
-      return WebBrowser.openBrowserAsync(webLink);
-    }
-  } catch (error) {
-    console.log(error);
+  const isAvailable = await Linking.canOpenURL(mobileLink);
+  if (isAvailable) {
+    return Linking.openURL(mobileLink);
+  } else {
+    return WebBrowser.openBrowserAsync(webLink);
   }
 };
-export const CardUser: FC<IUser> = ({
-  avatar_url,
-  bio,
-  company,
-  created_at,
-  followers,
-  following,
-  html_url,
-  location,
-  login,
-  name,
-  public_repos,
-  twitter_username,
-}) => {
+export interface UserProps {
+  user?: UserDto | null;
+  showUser: boolean;
+}
+export const User: FC<UserProps> = ({ user, showUser }) => {
   const { colorMode } = useTheme();
+  if (!showUser) return null;
   return (
     <View
       style={{
@@ -73,7 +51,7 @@ export const CardUser: FC<IUser> = ({
     >
       <View style={{ flexDirection: 'row' }}>
         <Image
-          source={{ uri: avatar_url }}
+          source={{ uri: user?.avatar_url }}
           style={{ width: 90, height: 90, borderRadius: 50 }}
         />
         <View
@@ -86,46 +64,46 @@ export const CardUser: FC<IUser> = ({
           <Text
             style={{
               color: colorMode === 'dark' ? '#e2ebf2' : '#4a4f54',
-              fontSize: 16,
-              fontFamily: 'Poppins_700Bold',
-              marginRight: 75,
+              fontSize: FontSize.md,
+              fontFamily: FontFamily.Poppins[700],
+              flex: 1,
             }}
             numberOfLines={1}
           >
-            {name}
+            {user?.name}
           </Text>
           <Text
             style={{
               color: colorMode === 'dark' ? '#0179fb' : '#9ab7fb',
-              fontSize: 10,
-              fontFamily: 'Poppins_700Bold',
+              fontSize: FontSize['2xs'],
+              fontFamily: FontFamily.Poppins[700],
               marginRight: 75,
             }}
             numberOfLines={1}
           >
-            {`@${login}`}
+            {`@${user?.login}`}
           </Text>
           <Text
             style={{
               color: colorMode === 'dark' ? 'white' : '#616364',
-              fontSize: 12,
-              fontFamily: 'Poppins_700Bold',
+              fontSize: FontSize.xs,
+              fontFamily: FontFamily.Poppins[700],
             }}
           >
-            {`Juntou-se em ${DateZone(created_at)}`}
+            {`Juntou-se em ${DateZone(new Date(user?.created_at || ''))}`}
           </Text>
         </View>
       </View>
       <Text
         style={{
-          fontFamily: 'Poppins_400Regular',
+          fontFamily: FontFamily.Poppins[400],
           color: colorMode === 'dark' ? 'white' : '#616364',
           marginTop: 20,
           lineHeight: 24,
           textAlign: 'justify',
         }}
       >
-        {bio}
+        {user?.bio}
       </Text>
       <View
         style={{
@@ -139,9 +117,9 @@ export const CardUser: FC<IUser> = ({
           marginTop: 10,
         }}
       >
-        <SocialTag name="Repositórios" size={public_repos} />
-        <SocialTag name="Seguidores" size={followers} />
-        <SocialTag name="Seguindo" size={following} />
+        <SocialTag name="Repositórios" size={user?.public_repos || 0} />
+        <SocialTag name="Seguidores" size={user?.followers || 0} />
+        <SocialTag name="Seguindo" size={user?.following || 0} />
       </View>
       <View style={{ marginTop: 14 }}>
         <Contact
@@ -152,7 +130,7 @@ export const CardUser: FC<IUser> = ({
               color={colorMode === 'dark' ? 'white' : '#788bae'}
             />
           }
-          text={location ?? 'Localização não disponível'}
+          text={user?.location ?? 'Localização não disponível'}
         />
         <Contact
           icon={
@@ -162,8 +140,8 @@ export const CardUser: FC<IUser> = ({
               color={colorMode === 'dark' ? 'white' : '#788bae'}
             />
           }
-          url={html_url}
-          onPress={() => WebBrowser.openBrowserAsync(html_url)}
+          url={user?.html_url}
+          onPress={() => WebBrowser.openBrowserAsync(user?.html_url || '')}
         />
         <Contact
           icon={
@@ -173,12 +151,12 @@ export const CardUser: FC<IUser> = ({
               color={colorMode === 'dark' ? 'white' : '#788bae'}
             />
           }
-          url={twitter_username ?? 'Sem disponibilidade'}
+          url={user?.twitter_username ?? 'Sem disponibilidade'}
           onPress={() => {
-            if (twitter_username) {
+            if (user?.twitter_username) {
               handleOnPress({
-                webLink: `https://twitter.com/${twitter_username}`,
-                mobileLink: `twitter/${twitter_username}`,
+                webLink: `https://twitter.com/${user?.twitter_username}`,
+                mobileLink: `twitter/${user?.twitter_username}`,
               });
             }
           }}
@@ -191,7 +169,7 @@ export const CardUser: FC<IUser> = ({
               color={colorMode === 'dark' ? 'white' : '#788bae'}
             />
           }
-          text={company ?? 'Sem disponibilidade'}
+          text={user?.company ?? 'Sem disponibilidade'}
         />
       </View>
     </View>

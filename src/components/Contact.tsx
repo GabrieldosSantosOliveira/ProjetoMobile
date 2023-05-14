@@ -1,4 +1,6 @@
 import { useTheme } from '@hooks/useTheme';
+import { FontFamily } from '@styles/FontFamitly';
+import { FontSize } from '@styles/FontSize';
 import { FC, ReactNode } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 export interface IContact {
@@ -17,8 +19,8 @@ export const Contact: FC<IContact> = ({ icon, url, text, onPress }) => {
         {icon}
         <Text
           style={{
-            fontFamily: 'Poppins_400Regular',
-            fontSize: 14,
+            fontFamily: FontFamily.Poppins[400],
+            fontSize: FontSize.sm,
             marginLeft: 8,
             color: colorMode === 'dark' ? 'white' : '#616364',
           }}

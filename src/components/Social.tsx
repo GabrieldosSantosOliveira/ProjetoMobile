@@ -1,4 +1,6 @@
 import { useTheme } from '@hooks/useTheme';
+import { FontFamily } from '@styles/FontFamitly';
+import { FontSize } from '@styles/FontSize';
 import { FC } from 'react';
 import { View, Text } from 'react-native';
 export interface ISocialTag {
@@ -18,8 +20,8 @@ export const SocialTag: FC<ISocialTag> = ({ name, size }) => {
       <Text
         style={{
           color: colorMode === 'dark' ? 'white' : 'black',
-          fontFamily: 'Poppins_700Bold',
-          fontSize: 16,
+          fontFamily: FontFamily.Poppins[700],
+          fontSize: FontSize.md,
         }}
       >
         {size}
