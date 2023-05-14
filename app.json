@@ -6,9 +6,7 @@
     "jsEngine": "hermes",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
